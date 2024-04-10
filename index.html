@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Теги</title>
+    <link rel="stylesheet" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+
+</head>
+<body>
+<div class="box">
+    <div class="tags">
+        <div class="wrap_tag">
+        <span class="tag">fg
+    </span>
+            <span class="remove"></span>
+        </div>
+        <div class="wrap_tag">
+        <span class="tag">fgt
+    </span>
+            <span class="remove"></span>
+        </div>
+
+    </div>
+</div>
+<template id="mytemplate">
+    <div class="wrap_tag">
+        <span class="tag">
+    </span>
+        <span class="remove"></span>
+    </div>
+</template>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    let $boxes = $('.box');
+    let name_tag;
+
+    $boxes.each((index, element) => {
+        let $box = $(element);
+        let $tags = $box.find('.tags');
+
+        $box.on('click', $tags, (event) => {
+            let $click = $(event.target);
+            if ($click.hasClass('remove') === true) {
+                $click.parent().remove();
+                return false;
+            }
+            name_tag = prompt("Введите тег:", '');
+            if (name_tag !== null && name_tag !== '') {
+                let template = $('#mytemplate');
+                let contets = template.contents().clone();
+                let tag_wrap = $(contets.get(1));
+                let tag = tag_wrap.find('.tag');
+                let $old_teg = $tags.find('.tag');
+                let has_tag = false;
+                $old_teg.each((index, element) => {
+                    let value_teg = $(element).html();
+                    if (name_tag.trim() === value_teg.trim()) {
+                        has_tag = true;
+                    }
+                })
+                if (has_tag === false) {
+                    tag.text(name_tag);
+                    $tags.append(tag_wrap);
+                }
+            }
+            // $tags.append(`<span class=\"tag\"> ${name_tag} <span class=\"remove\"></span> </span>`); Без template
+        });
+
+    });
+
+
+</script>
+
+</body>
+
+</html>

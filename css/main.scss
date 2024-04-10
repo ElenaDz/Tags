@@ -1,0 +1,49 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  height: 300px;
+  width: 600px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: gainsboro;
+  padding: 10px;
+  display: flex;
+
+
+  .tags {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-wrap: wrap;
+
+    .wrap_tag {
+      display: flex;
+      height: 20px;
+      width: fit-content;
+      background-color: #5bc0de;
+      color: white;
+      margin-right: 10px;
+      padding: 0 6px;
+      border: 1px solid white;
+      border-radius: 5px;
+
+      .remove {
+        color: white;
+        margin-left: 8px;
+        cursor: pointer;
+      }
+
+      .remove::after {
+        content: "x";
+        padding: 0px 2px;
+      }
+    }
+
+  }
+
+
+}
