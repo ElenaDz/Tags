@@ -35,15 +35,9 @@ body {
         color: white;
         margin-left: 8px;
         cursor: pointer;
-      }
-
-      .remove::after {
-        content: "x";
-        padding: 0px 2px;
+        background-color: #5bc0de;
+        border: none;
       }
     }
-
   }
-
-
 }

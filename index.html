@@ -13,85 +13,76 @@
 
 <body>
 <!-- FIXME форматирование отступы -->
-<div class="box">
-    <div class="tags">
-        <div class="wrap_tag">
-        <span class="tag">1
-    </span>
-            <span class="remove"></span>
+    <div class="box">
+        <div class="tags">
+            <div class="wrap_tag">
+            <span class="tag">1
+        </span>
+                <button class="remove">x</button>
+            </div>
+            <div class="wrap_tag">
+            <span class="tag">2
+        </span>
+                <!-- FIXME замени на тег button, что именно написано на кнопке долно определяться здесь, а не в css -->
+                <button class="remove">x</button>
+            </div>
         </div>
+    </div>
+
+    <template id="mytemplate">
         <div class="wrap_tag">
-        <span class="tag">2
-    </span>
-            <!-- FIXME замени на тег button, что именно написано на кнопке долно определяться здесь, а не в css -->
-            <span class="remove"></span>
+            <span class="tag">
+        </span>
+            <button class="remove">x</button>
         </div>
+    </template>
 
-    </div>
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let $boxes = $('.box');
+        let name_tag;
 
-<template id="mytemplate">
-    <div class="wrap_tag">
-        <span class="tag">
-    </span>
-        <span class="remove"></span>
-    </div>
-</template>
+        $boxes.each((index, element) => {
+            let $box = $(element);
+            let $tags = $box.find('.tags');
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-    let $boxes = $('.box');
-    let name_tag;
-
-    $boxes.each((index, element) => {
-        let $box = $(element);
-        let $tags = $box.find('.tags');
-
-        // Заготовка для обработчика клика на кнопку удалить
-        $box.on('click', '.remove', () => {
-        	console.log('remove');
-        });
-
-        $box.on('click', $tags, (event) => {
-        	// FIXME обработчик клика по кнопке удалить необходимо вынести в отдельный обработчик
-            let $click = $(event.target);
-            if ($click.hasClass('remove') === true) {
-                $click.parent().remove();
-                return false;
-            }
-
-            name_tag = prompt("Введите тег:", '');
-            if (name_tag !== null && name_tag !== '') {
-                let template = $('#mytemplate');
-                let contets = template.contents().clone();
-                let tag_wrap = $(contets.get(1));
-                let tag = tag_wrap.find('.tag');
-                let $old_teg = $tags.find('.tag');
-                let has_tag = false;
-
-                $old_teg.each((index, element) => {
-                    let value_teg = $(element).html();
-                    if (name_tag.trim() === value_teg.trim()) {
-                        has_tag = true;
-                    }
-                });
-
-                if (has_tag === false) {
-                    tag.text(name_tag);
-                    $tags.append(tag_wrap);
+            $box.on('click', '.remove', (event) => {
+                let $click = $(event.target);
+                if ($click.hasClass('remove') === true) {
+                    $click.parent().remove();
+                    return false;
                 }
-            }
+            });
 
-            // FIXME Закоментированный код недопустим, удаляй
-            // $tags.append(`<span class=\"tag\"> ${name_tag} <span class=\"remove\"></span> </span>`); Без template
+            $box.on('click', $tags, () => {
+                name_tag = prompt("Введите тег:", '');
+                if (name_tag !== null && name_tag !== '') {
+                    let template = $('#mytemplate');
+                    let contets = template.contents().clone();
+                    let tag_wrap = $(contets.get(1));
+                    let tag = tag_wrap.find('.tag');
+                    let $old_teg = $tags.find('.tag');
+                    let has_tag = false;
+
+                    $old_teg.each((index, element) => {
+                        let value_teg = $(element).html();
+                        if (name_tag.trim() === value_teg.trim()) {
+                            has_tag = true;
+                        }
+                    });
+
+                    if (has_tag === false) {
+                        tag.text(name_tag);
+                        $tags.append(tag_wrap);
+                    }
+                }
+            });
         });
 
-    });
 
-
-</script>
+    </script>
 
 </body>
 
