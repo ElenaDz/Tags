@@ -57,11 +57,8 @@
             let $tags = $box.find('.tags');
 
             $box.on('click', '.remove', (event) => {
-                let $click = $(event.target);
-                if ($click.hasClass('remove') === true) {
-                    $click.parent().remove();
-                    return false;
-                }
+                $(event.currentTarget).parent().remove();
+                return false;
             });
 
             $box.on('click', $tags, () => {
